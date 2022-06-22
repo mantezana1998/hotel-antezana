@@ -8,21 +8,13 @@ CREATE TABLE Persons (
 );
 
 CREATE TABLE Concierge (
-    Email VARCHAR(64) NOT NULL,
-
-    PRIMARY KEY (Email),
-    FOREIGN KEY (Email) REFERENCES Persons(Email)
-);
-
-CREATE TABLE Cities (
-    City VARCHAR(64) NOT NULL,
-    State VARCHAR(64) NOT NULL
+    Email VARCHAR(64) NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE Hotels (
     Hotel VARCHAR(64) NOT NULL,
-
-    PRIMARY KEY (Hotel)
+    City VARCHAR(64) NOT NULL PRIMARY KEY,
+    State VARCHAR(64) NOT NULL
 );
 
 CREATE TABLE Hotel_Address (
@@ -32,17 +24,17 @@ CREATE TABLE Hotel_Address (
     Opens VARCHAR(64) NOT NULL,
     Closes VARCHAR(64) NOT NULL,
 
-    FOREIGN KEY (Site) REFERENCES Hotels (Hotel)
+    FOREIGN KEY (City) REFERENCES Hotels (City)
 );
 
 CREATE TABLE Reservations (
     Guest VARCHAR(64) NOT NULL, 
     Reservation_Time VARCHAR(64) NOT NULL,
-    Hotel VARCHAR(64) NOT NULL,
+    HotelCity VARCHAR(64) NOT NULL,
     Concierge VARCHAR(64) NOT NULL,
     Check_out VARCHAR(64) NOT NULL,
 
     FOREIGN KEY (Guest) REFERENCES Persons (Email),
-    FOREIGN KEY (Hotel) REFERENCES Hotels (Hotel),
+    FOREIGN KEY (HotelCity) REFERENCES Hotels (City),
     FOREIGN KEY (Concierge) REFERENCES Concierge (Email)
 );
